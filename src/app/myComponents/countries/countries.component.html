@@ -1,0 +1,29 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4 display-5">Countries Data</h2>
+  
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Countries Table -->
+  <table *ngIf="countries.length > 0" class="table table-bordered table-striped shadow">
+    <thead class="bg-info text-white">
+      <tr>
+        <!-- <th style="width: 50%;">Id</th> -->
+        <th style="width: 50%;">Country Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let country of countries">
+        <!-- <td>{{ country.id }}</td> -->
+        <td>{{ country.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- No Data Message -->
+  <div *ngIf="!errorMessage && countries.length === 0" class="text-center">
+    <p class="text-muted">No countries available to display.</p>
+  </div>
+</div>

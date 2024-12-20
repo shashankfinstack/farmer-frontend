@@ -1,0 +1,44 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4 display-5">Schedules</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+
+  <div class="text-center mb-4">
+    <button class="btn btn-primary me-2" (click)="fetchSchedulesForToday()">Find Schedules Due for Today</button>
+    <button class="btn btn-secondary" (click)="fetchSchedulesForTomorrow()">Find Schedules Due for Tomorrow</button>
+  </div>
+  
+
+  <table class="table table-bordered table-striped shadow" *ngIf="schedules.length > 0; else noData">
+    <thead class="bg-info text-white">
+      <tr>
+        <!-- <th>Id</th> -->
+        <th>Days After Sowing</th>
+        <th>Fertilizer</th>
+        <th>Quantity</th>
+        <th>Quantity Unit</th>
+        <th>Farm ID</th>
+        <th>Price Per Unit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let schedule of schedules">
+        <!-- <td>{{ schedule.id }}</td> -->
+        <td>{{ schedule.days_after_sowing }}</td>
+        <td>{{ schedule.fertiliser }}</td>
+        <td>{{ schedule.quantity }}</td>
+        <td>{{ schedule.quantity_unit }}</td>
+        <td>{{ schedule.farm_id }}</td>
+        <td>{{ schedule.price_per_unit }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noData>
+    <div class="alert alert-warning text-center">
+      No schedule data available.
+    </div>
+  </ng-template>
+</div>

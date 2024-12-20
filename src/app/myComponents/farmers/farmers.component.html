@@ -1,0 +1,84 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4 display-5">Farmers Data</h2>
+
+
+  <!-- Search for farmers by crop -->
+  <div class="text-center mb-4">
+    <label for="crop" class="form-label fw-bold">Find Farmers Growing a Specific Crop:</label>
+    <div class="input-group">
+      <input 
+        id="crop" 
+        type="text" 
+        [(ngModel)]="cropName" 
+        class="form-control" 
+        placeholder="Enter crop name (e.g., Wheat, Rice)" 
+        aria-label="Crop Name" />
+      <button class="btn btn-primary" (click)="fetchFarmersByCrop()">Search</button>
+    </div>
+    <small class="text-muted">Enter the crop name and click "Search" to filter farmers.</small>
+  </div>
+
+  <!-- Farmers Table -->
+  <table class="table table-bordered table-striped shadow" *ngIf="farmers.length > 0; else noData">
+    <thead class="bg-info text-white">
+      <tr>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Language</th>
+        <th>Country ID</th>
+        <th>Farms</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let farmer of farmers">
+        <td>{{ farmer.name }}</td>
+        <td>{{ farmer.phone_number }}</td>
+        <td>{{ farmer.language }}</td>
+        <td>{{ farmer.country_id }}</td>
+        <td>{{ farmer.farms.join(', ') }}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="deleteFarmer(farmer.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- No Data Template -->
+  <ng-template #noData>
+    <div class="alert alert-warning text-center">
+      No farmers data available.
+    </div>
+  </ng-template>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger mt-4">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Create Farmer Form -->
+  <div class="card mb-4 shadow">
+    <div class="card-body">
+      <h5 class="card-title">Create a New Farmer</h5>
+      <form (ngSubmit)="createFarmer()">
+        <div class="form-group mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" id="name" [(ngModel)]="newFarmer.name" name="name" class="form-control" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="phone_number" class="form-label">Phone Number</label>
+          <input type="text" id="phone_number" [(ngModel)]="newFarmer.phone_number" name="phone_number" class="form-control" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="language" class="form-label">Language</label>
+          <input type="text" id="language" [(ngModel)]="newFarmer.language" name="language" class="form-control" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="country_id" class="form-label">Country ID</label>
+          <input type="number" id="country_id" [(ngModel)]="newFarmer.country_id" name="country_id" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Farmer</button>
+      </form>
+    </div>
+  </div>
+</div>

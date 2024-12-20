@@ -1,0 +1,87 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4 display-5">Farms Data</h2>
+
+
+  <!-- Farms Table -->
+  <table class="table table-bordered table-striped shadow" *ngIf="farms.length > 0; else noData">
+    <thead class="bg-info text-white">
+      <tr>
+        <th>Area (acres)</th>
+        <th>Village</th>
+        <th>Crop Grown</th>
+        <th>Sowing Date</th>
+        <th>Farmer ID</th>
+        <th>Country ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let farm of farms">
+        <td>{{ farm.area }}</td>
+        <td>{{ farm.village }}</td>
+        <td>{{ farm.crop_grown }}</td>
+        <td>{{ farm.sowing_date | date }}</td>
+        <td>{{ farm.farmer_id }}</td>
+        <td>{{ farm.country_id }}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="deleteFarm(farm.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- No Data Template -->
+  <ng-template #noData>
+    <div class="alert alert-warning text-center">
+      No farms data available.
+    </div>
+  </ng-template>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger mt-4">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Create Farm Form -->
+  <div class="card mb-4 shadow">
+    <div class="card-body">
+      <h4 class="card-title">Create Farm</h4>
+      <form (ngSubmit)="createFarm()" #farmForm="ngForm">
+        <div class="mb-3">
+          <label for="area" class="form-label">Area (acres)</label>
+          <input type="text" id="area" name="area" [(ngModel)]="newFarm.area" class="form-control" required />
+        </div>
+
+        <!-- <div class="mb-3">
+          <label for="area" class="form-label">Area (acres)</label>
+          <input type="text" id="area" name="area" [(ngModel)]="newFarm.area" class="form-control" required />
+        </div> -->
+        
+
+        <div class="mb-3">
+          <label for="village" class="form-label">Village</label>
+          <input type="text" id="village" name="village" [(ngModel)]="newFarm.village" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label for="crop_grown" class="form-label">Crop Grown</label>
+          <input type="text" id="crop_grown" name="crop_grown" [(ngModel)]="newFarm.crop_grown" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label for="sowing_date" class="form-label">Sowing Date</label>
+          <input type="date" id="sowing_date" name="sowing_date" [(ngModel)]="newFarm.sowing_date" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label for="farmer_id" class="form-label">Farmer ID</label>
+          <input type="number" id="farmer_id" name="farmer_id" [(ngModel)]="newFarm.farmer_id" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label for="country_id" class="form-label">Country ID</label>
+          <input type="number" id="country_id" name="country_id" [(ngModel)]="newFarm.country_id" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!farmForm.valid">Create Farm</button>
+      </form>
+    </div>
+  </div>
+  
+</div>
+
